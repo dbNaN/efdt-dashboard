@@ -1,0 +1,27 @@
+<div>
+  <button (click)="changeLayout()">Change layout</button>
+  <button routerLink="add">Aggiungi prodotto</button>
+  <div class="parent" [ngClass]="{ 'grid-container': !className }">
+    <ng-container *ngFor="let p of products">
+      <div class="test">
+        {{ p.data.title }}
+        <p (click)="deleteProduct(p.id)">X</p>
+        <p [routerLink]="[p.id, 'view']">View</p>
+      </div>
+    </ng-container>
+  </div>
+</div>
+<div>
+  <div style="display: block">
+    <canvas
+      baseChart
+      [data]="polarAreaChartData"
+      [labels]="polarAreaChartLabels"
+      [legend]="polarAreaLegend"
+      [chartType]="polarAreaChartType"
+      [options]="chartOptions"
+    >
+    </canvas>
+  </div>
+</div>
+<button routerLink="add">Aggiungi prodotto</button>

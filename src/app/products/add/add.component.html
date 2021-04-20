@@ -1,0 +1,70 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="title">Title</label>
+    <input formControlName="title" id="title" type="text" />
+    <span
+      *ngIf="
+        this.controls.title.touched && this.controls.title.hasError('required')
+      "
+    >
+      Field is required
+    </span>
+  </div>
+  <div>
+    <label for="category">Category</label>
+    <input formControlName="category" id="category" type="text" />
+    <span
+      *ngIf="
+        this.controls.category.touched &&
+        this.controls.category.hasError('required')
+      "
+    >
+      Field is required
+    </span>
+  </div>
+  <div>
+    <label for="price">Price</label>
+    <input formControlName="price" id="price" type="number" />
+    <span
+      *ngIf="
+        this.controls.price.touched && this.controls.price.hasError('required')
+      "
+    >
+      Field is required
+    </span>
+  </div>
+  <div>
+    <label for="employee">Employee</label>
+    <input formControlName="employee" id="employee" type="text" />
+    <span
+      *ngIf="
+        this.controls.employee.touched &&
+        this.controls.employee.hasError('required')
+      "
+    >
+      Field is required
+    </span>
+  </div>
+  <div>
+    <label for="description">Description</label>
+    <input formControlName="description" id="description" type="text" />
+    <span
+      *ngIf="
+        this.controls.description.touched &&
+        this.controls.description.hasError('required')
+      "
+    >
+      Field is required
+    </span>
+  </div>
+  <div class="form-group">
+    <button [disabled]="loading" class="btn btn-primary">
+      <span
+        *ngIf="loading"
+        class="spinner-border spinner-border-sm mr-1"
+      ></span>
+      Save
+    </button>
+    <a routerLink="/products" class="btn btn-link">Cancel</a>
+  </div>
+</form>
