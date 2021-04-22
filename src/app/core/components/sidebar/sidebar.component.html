@@ -3,6 +3,15 @@
     <div class="logo">
       <p>dashboard</p>
     </div>
-    <nav></nav>
+    <ul class="nav" *ngFor="let path of routes">
+      <li>
+        <a
+          [routerLink]="[path]"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >{{ path }}</a
+        >
+      </li>
+    </ul>
   </div>
 </div>

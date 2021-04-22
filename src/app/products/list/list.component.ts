@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Label, SingleDataSet } from 'ng2-charts';
 import { CategoryStats } from 'src/app/core/models/category-stats.model';
 import { Product } from 'src/app/core/models/product.model';
+import { PaginationService } from 'src/app/core/services/pagination.service';
 import { StoreService } from 'src/app/core/services/store.service';
 
 @Component({
@@ -11,6 +12,12 @@ import { StoreService } from 'src/app/core/services/store.service';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
+  // pager object
+  pager: any = {};
+
+  // paged items
+  pagedItems: any[];
+
   public loader: boolean = false;
   public products: any[] = [
     {
@@ -103,18 +110,24 @@ export class ListComponent implements OnInit {
     },
   };
   public polarAreaColors = [];
-  constructor(private storeService: StoreService) {}
+  constructor(
+    private storeService: StoreService,
+    private paginationService: PaginationService
+  ) {}
 
   ngOnInit() {
-    this.loader = true;
-    this.getProducts();
-    this.getStats();
+    console.log(this.products);
+    this.setPage(1);
+    //this.getProducts();
+    //this.getStats();
   }
 
   getProducts() {
     this.storeService.getStoreProducts().subscribe(
       (response: Product[]) => {
+        console.log(response);
         this.products = response;
+        this.setPage(1);
       },
       (err) => {
         console.log(err);
@@ -158,5 +171,22 @@ export class ListComponent implements OnInit {
     const g = Math.random() * 255;
     const b = Math.random() * 255;
     return `rgba(${r},${g},${b},0.28)`;
+  }
+  setPage(page: number) {
+    if (page < 1 || page > this.pager.totalPages) {
+      return;
+    }
+
+    // get pager object from service
+    this.pager = this.paginationService.getPagination(
+      this.products.length,
+      page
+    );
+
+    // get current page of items
+    this.pagedItems = this.products.slice(
+      this.pager.startIndex,
+      this.pager.endIndex + 1
+    );
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import Store from './core/models/store.model';
 import { StoreService } from './core/services/store.service';
 @Component({
@@ -8,10 +9,15 @@ import { StoreService } from './core/services/store.service';
 })
 export class AppComponent {
   public name: string = '';
-  constructor(private storeService: StoreService) {}
+  public getRoutes: string[] = [];
+  constructor(private storeService: StoreService, private router: Router) {}
 
   ngOnInit() {
-    this.storeService.getStoreById().subscribe(
+    this.getRoutes = this.router.config
+      .filter((route) => route.path)
+      .map((route) => route.path);
+    console.log(this.getRoutes);
+    /*this.storeService.getStoreById().subscribe(
       (response: { name: string }) => {
         this.name = response.name;
       },
@@ -19,6 +25,6 @@ export class AppComponent {
         console.log(err);
         this.name = 'Default';
       }
-    );
+    );*/
   }
 }
