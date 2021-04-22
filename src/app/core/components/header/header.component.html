@@ -1,10 +1,11 @@
-<nav class="navbar">
+<nav class="efdt-navbar">
   <div class="container">
     <div class="row">
       <div class="column column-flex">
-        <div class="navbar-left"></div>
-        <div class="navbar-right">
-          <p>hi, {{ name }}</p>
+        <div class="efdt-navbar-left"></div>
+        <div class="efdt-navbar-right">
+          <p *ngIf="name">hi, {{ name }}</p>
+          <p *ngIf="!name" class="efdt-temp">...</p>
           <span class="profile-icon"><i class="gg-profile"></i></span>
         </div>
       </div>

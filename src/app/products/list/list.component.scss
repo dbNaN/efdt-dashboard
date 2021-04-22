@@ -8,10 +8,12 @@
   position: relative;
 }
 
-.panel-layout:hover,
-.grid-layou:hover {
+.panel-layout:hover {
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(155, 77, 202, 0.8) 0px 0px 0px 1px;
+}
+.grid-layout:hover {
+  border: 1px solid #9b4dca;
 }
 p {
   margin: 0;
@@ -65,14 +67,37 @@ p {
     text-overflow: ellipsis;
   }
   .title {
-    //width: calc(100% - 80%);
+    display: flex;
+    justify-content: space-between;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     position: relative;
     font-weight: bold;
     margin-bottom: 3rem;
 
     & > p:first-child {
-      max-width: 85%;
+      max-width: 84%;
     }
+    & > p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 65%;
+      width: 100%;
+    }
+    span {
+      max-width: 65%;
+      width: 100%;
+    }
+    span p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  .actionButtons .button-default {
+    margin-right: 5px;
   }
   .category {
     font-weight: lighter;
@@ -86,19 +111,37 @@ p {
   }
   .panel-footer {
     display: flex;
+  }
+  .price,
+  .employee,
+  .review {
+    font-size: 14px;
+    padding: 0 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
-    & > div {
-      flex: 0 0 33.3%;
+    p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
   .price {
-    flex: 0 0 30%;
+    width: calc(100%-80%);
+    padding-left: 0;
   }
   .employee {
     flex: 0 0 40%;
   }
   .review {
-    flex: 0 0 30%;
+    flex: 0 0 40%;
+    padding-right: 0;
+  }
+  .price p,
+  .employee p,
+  .review p {
+    font-size: 14px;
   }
 }
 
@@ -106,6 +149,10 @@ p {
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: 100%;
+  padding: 0px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
 
   .grid-header {
     display: flex;
@@ -126,17 +173,28 @@ p {
     text-overflow: ellipsis;
   }
   .title {
-    //width: calc(100% - 80%);
     position: relative;
     font-weight: bold;
     margin-bottom: 3rem;
+    max-width: 80%;
+    margin: 0.2rem auto 3rem auto;
+    p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
+
   .category {
     font-weight: lighter;
     top: 1.9rem;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
+    max-width: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
     p {
       font-size: 1.35rem;
@@ -147,57 +205,47 @@ p {
     display: flex;
     flex-direction: column;
   }
-}
-.pagination {
-  display: inline-block;
-  padding-left: 0;
-  margin: 0 0 20px 0;
-  border-radius: 4px;
 
-  li {
-    display: inline;
+  .actionButtons {
+    height: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+  }
+  .price,
+  .employee,
+  .review {
+    max-width: 80%;
+    margin-left: 2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+
+    p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .review {
+      margin-bottom: 1.5rem;
+    }
   }
 }
-.pagination > li:first-child > a,
-.pagination > li:first-child > span {
-  margin-left: 0;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+.efdt-card-header {
+  .button {
+    margin-right: 5px;
+  }
 }
-.pagination > a {
-  cursor: pointer;
-}
-.pagination > .disabled > a,
-.pagination > .disabled > a:focus,
-.pagination > .disabled > a:hover,
-.pagination > .disabled > span,
-.pagination > .disabled > span:focus,
-.pagination > .disabled > span:hover {
-  color: #777;
-  cursor: not-allowed;
-  background-color: #fff;
-  border-color: #ddd;
-}
-.pagination > li > a,
-.pagination > li > span {
-  position: relative;
-  float: left;
-  padding: 6px 12px;
-  margin-left: -1px;
-  line-height: 1.42857143;
-  color: #337ab7;
-  text-decoration: none;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-top-color: rgb(221, 221, 221);
-  border-right-color: rgb(221, 221, 221);
-  border-bottom-color: rgb(221, 221, 221);
-}
-.card-footer.paginator {
+.efdt-card-footer.paginator {
   padding: 0 15px 15px 15px;
 
   ul {
     padding: 0;
     margin: 0;
   }
+}
+.title > p:first-child {
+  font-size: 16px;
 }

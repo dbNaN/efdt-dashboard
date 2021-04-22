@@ -3,9 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
-import { LoaderComponent } from './loader.component';
-
+import { PaginationComponent } from './pagination/pagination.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   imports: [
     CommonModule,
@@ -13,9 +13,11 @@ import { LoaderComponent } from './loader.component';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
+    MatGridListModule,
+    NgxSpinnerModule,
   ],
-  declarations: [LoaderComponent],
-  exports: [LoaderComponent],
+  declarations: [PaginationComponent],
+  exports: [PaginationComponent, MatGridListModule],
   providers: [],
 })
 export class SharedModule {}

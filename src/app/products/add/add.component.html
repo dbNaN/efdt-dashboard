@@ -1,59 +1,64 @@
 <div class="container">
   <div class="row">
     <div class="column column-50">
-      <div class="card">
-        <div class="card-header">
-          <h3>Add new product</h3>
+      <div class="efdt-card">
+        <div class="efdt-card-header">
+          <h3 *ngIf="isAddMode">Add new product</h3>
+          <h3 *ngIf="!isAddMode">View product n.{{ id }}</h3>
         </div>
-        <div class="card-body">
+        <div class="efdt-card-body">
           <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <fieldset>
               <div>
                 <label for="title">Title</label>
                 <input formControlName="title" id="title" type="text" />
                 <span
+                  class="input-error"
                   *ngIf="
                     this.controls.title.touched &&
                     this.controls.title.hasError('required')
                   "
                 >
-                  Field is required
+                  Title is required
                 </span>
               </div>
               <div>
                 <label for="category">Category</label>
                 <input formControlName="category" id="category" type="text" />
                 <span
+                  class="input-error"
                   *ngIf="
                     this.controls.category.touched &&
                     this.controls.category.hasError('required')
                   "
                 >
-                  Field is required
+                  Category is required
                 </span>
               </div>
               <div>
                 <label for="price">Price</label>
                 <input formControlName="price" id="price" type="number" />
                 <span
+                  class="input-error"
                   *ngIf="
                     this.controls.price.touched &&
                     this.controls.price.hasError('required')
                   "
                 >
-                  Field is required
+                  Price is required
                 </span>
               </div>
               <div>
                 <label for="employee">Employee</label>
                 <input formControlName="employee" id="employee" type="text" />
                 <span
+                  class="input-error"
                   *ngIf="
                     this.controls.employee.touched &&
                     this.controls.employee.hasError('required')
                   "
                 >
-                  Field is required
+                  Employee is required
                 </span>
               </div>
               <div>
@@ -64,15 +69,19 @@
                   type="text"
                 />
                 <span
+                  class="input-error"
                   *ngIf="
                     this.controls.description.touched &&
                     this.controls.description.hasError('required')
                   "
                 >
-                  Field is required
+                  Description is required
                 </span>
               </div>
-              <div class="form-group" *ngIf="this.isAddMode; else viewMode">
+              <div
+                class="form-group submit-button"
+                *ngIf="this.isAddMode; else viewMode"
+              >
                 <input
                   [disabled]="!form.valid"
                   class="button-primary"
@@ -94,7 +103,7 @@
   </div>
 </div>
 <ng-template #viewMode>
-  <div class="form-group">
+  <div class="form-group back-button">
     <input
       routerLink="/products"
       class="button button-outline"
@@ -103,3 +112,9 @@
     />
   </div>
 </ng-template>
+<ngx-spinner size="medium" [fullScreen]="true"
+  ><p style="color: white">
+    <span *ngIf="isAddMode">Saving...</span>
+    <span *ngIf="!isAddMode">Loading...</span>
+  </p></ngx-spinner
+>

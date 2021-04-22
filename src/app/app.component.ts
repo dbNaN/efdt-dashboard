@@ -17,7 +17,7 @@ export class AppComponent {
       .filter((route) => route.path)
       .map((route) => route.path);
     console.log(this.getRoutes);
-    /*this.storeService.getStoreById().subscribe(
+    this.storeService.getStoreById().subscribe(
       (response: { name: string }) => {
         this.name = response.name;
       },
@@ -25,6 +25,6 @@ export class AppComponent {
         console.log(err);
         this.name = 'Default';
       }
-    );*/
+    );
   }
 }
