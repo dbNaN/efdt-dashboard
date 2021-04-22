@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
+import { LoaderComponent } from './loader.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,8 @@ import { BrowserModule } from '@angular/platform-browser';
     HttpClientModule,
     RouterModule,
   ],
-  declarations: [],
+  declarations: [LoaderComponent],
+  exports: [LoaderComponent],
   providers: [],
 })
 export class SharedModule {}

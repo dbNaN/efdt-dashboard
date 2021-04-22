@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StoreService } from 'src/app/core/services/store.service';
 
@@ -9,13 +9,15 @@ import { StoreService } from 'src/app/core/services/store.service';
   styleUrls: ['./add.component.scss'],
 })
 export class AddComponent implements OnInit {
+  id!: string;
+  isAddMode: boolean = true;
   loading = false;
   public form = this.formBuilder.group({
-    title: [''],
-    price: [0],
-    category: [''],
-    employee: [''],
-    description: [''],
+    title: ['', Validators.required],
+    price: [0, Validators.required],
+    category: ['', Validators.required],
+    employee: ['', Validators.required],
+    description: ['', Validators.required],
   });
   public controls = {
     title: this.form.get('title'),
@@ -27,14 +29,21 @@ export class AddComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private storeService: StoreService,
-    private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.id = this.route.snapshot.params['id'];
+    console.log(this.route.snapshot);
+    if (this.id) {
+      this.isAddMode = false;
+      this.form.disable();
+      this.storeService.getStoreProductsById(this.id).subscribe((data) => {
+        this.form.patchValue(data);
+      });
+    }
+  }
   onSubmit() {
-    //this.submitted = true;
-
-    // stop here if form is invalid
     if (this.form.invalid) {
       return;
     }
@@ -43,7 +52,6 @@ export class AddComponent implements OnInit {
 
   private createProduct() {
     this.storeService.createProduct(this.form.value).subscribe(() => {
-      console.log('ciao');
       this.router.navigate['products'];
     });
   }

@@ -4,4 +4,5 @@ export interface Product {
   price: 0;
   employee: 'string';
   description: 'string';
+  id: 'string';
 }

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Label, SingleDataSet } from 'ng2-charts';
 import { CategoryStats } from '../core/models/category-stats.model';
 import { StoreService } from '../core/services/store.service';

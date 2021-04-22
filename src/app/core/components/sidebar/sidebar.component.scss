@@ -1,0 +1,27 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  bottom: 0;
+  width: 260px;
+  left: 0;
+  z-index: 1030;
+  border-right: 1px solid #ddd;
+  background-color: white;
+
+  .sidebar-wrapper {
+    padding: 10px;
+  }
+  p {
+    padding: 10px;
+    margin: 0;
+    padding: 0;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    text-transform: capitalize;
+    font-size: 20px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    line-height: 1.625rem;
+  }
+}

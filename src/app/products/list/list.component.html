@@ -1,27 +1,75 @@
-<div>
-  <button (click)="changeLayout()">Change layout</button>
-  <button routerLink="add">Aggiungi prodotto</button>
-  <div class="parent" [ngClass]="{ 'grid-container': !className }">
-    <ng-container *ngFor="let p of products">
-      <div class="test">
-        {{ p.data.title }}
-        <p (click)="deleteProduct(p.id)">X</p>
-        <p [routerLink]="[p.id, 'view']">View</p>
+<div class="container">
+  <div class="row">
+    <div class="column column-50">
+      <div class="card">
+        <div class="card-header">
+          <span class="layout-icon" (click)="changeLayout()"
+            ><i class="gg-menu-grid-o"></i
+          ></span>
+          <button routerLink="add">Aggiungi prodotto</button>
+        </div>
+        <div class="card-body">
+          <div
+            class="parent"
+            [ngClass]="{
+              'grid-container': isGridLayout,
+              'product-list': !isGridLayout
+            }"
+          >
+            <ng-container *ngFor="let product of products">
+              <ng-container
+                [ngTemplateOutlet]="isGridLayout ? gridLayout : panelLayout"
+                [ngTemplateOutletContext]="{ product: product }"
+              ></ng-container>
+            </ng-container>
+          </div>
+        </div>
+        <div class="card-footer"></div>
       </div>
-    </ng-container>
+      <app-loader *ngIf="this.loader"></app-loader>
+    </div>
+    <div class="column">
+      <div class="card">
+        <div class="card-header">
+          <h3>Products per category ratio</h3>
+        </div>
+        <div class="card-body">
+          <div style="display: block">
+            <canvas
+              baseChart
+              [data]="polarAreaChartData"
+              [labels]="polarAreaChartLabels"
+              [legend]="polarAreaLegend"
+              [chartType]="polarAreaChartType"
+              [options]="chartOptions"
+              [colors]="[]"
+            >
+            </canvas>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<div>
-  <div style="display: block">
-    <canvas
-      baseChart
-      [data]="polarAreaChartData"
-      [labels]="polarAreaChartLabels"
-      [legend]="polarAreaLegend"
-      [chartType]="polarAreaChartType"
-      [options]="chartOptions"
-    >
-    </canvas>
+<ng-template #gridLayout let-gProduct="product">
+  <div class="grid-layout">
+    Hi
+    <span class="trash-icon" (click)="deleteProduct(gProduct.id)">
+      <i class="gg-trash"></i
+    ></span>
+    <span class="zoom-in-icon" [routerLink]="[gProduct.id, 'view']"
+      ><i class="gg-zoom-in"></i
+    ></span>
   </div>
-</div>
-<button routerLink="add">Aggiungi prodotto</button>
+</ng-template>
+<ng-template #panelLayout let-pProduct="product">
+  <div class="panel-layout">
+    <p>{{ pProduct.data.title }} - {{ pProduct.data.category }}</p>
+    <span class="trash-icon" (click)="deleteProduct(pProduct.id)">
+      <i class="gg-trash"></i
+    ></span>
+    <span class="zoom-in-icon" [routerLink]="[pProduct.id, 'view']"
+      ><i class="gg-zoom-in"></i
+    ></span>
+  </div>
+</ng-template>

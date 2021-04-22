@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Label, SingleDataSet } from 'ng2-charts';
 import { CategoryStats } from 'src/app/core/models/category-stats.model';
+import { Product } from 'src/app/core/models/product.model';
 import { StoreService } from 'src/app/core/services/store.service';
 
 @Component({
@@ -10,76 +11,152 @@ import { StoreService } from 'src/app/core/services/store.service';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  title = 'dashboard-test';
-  base = 'http://us-central1-test-b7665.cloudfunctions.net/api/';
-  idStores = 'ijpxNJLM732vm8AeajMR';
-  products = [];
-  className = false;
-  public polarAreaChartLabels: Label[] = [
-    'Download Sales',
-    'In-Store Sales',
-    'Mail Sales',
-    'Telesales',
-    'Corporate Sales',
+  public loader: boolean = false;
+  public products: any[] = [
+    {
+      id: '3dkjcHtVCku9xML1gS6G',
+      data: {
+        description: 'fdsfds',
+        price: 250,
+        title: 'lplp',
+        employee: 'fdssd',
+        category: 'fds',
+      },
+    },
+    {
+      id: '430sQSsxwFAIviXFBlCs',
+      data: {
+        title: 'a',
+        employee: 'fdssd',
+        price: 0,
+        category: 'z',
+        description: 'w',
+      },
+    },
+    {
+      id: '7LCrVrl98vJ1ltNKnO77',
+      data: {
+        category: 'Pasticceria',
+        title: 'Torta sake',
+        description: 'Torta al sake caldo',
+        employee: 'Giovanni',
+        price: 10,
+      },
+    },
+    {
+      id: 'ZDXfjxwDRe1aOnty6UUv',
+      data: {
+        description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vitae mi tellus. Sed viverra lacus dapibus metus tincidunt malesuada. Morbi imperdiet iaculis diam. Vivamus malesuada nisi sed lacus laoreet, id efficitur enim vestibulum. Donec ac risus eget nibh commodo pellentesque at id risus. Ut nec erat est. Nam nec bibendum enim. Phasellus ac efficitur sapien. Etiam at ligula et orci ultrices sollicitudin in vitae est.',
+        title: 'Long description',
+        price: '55',
+        category: 'testing',
+        id: 'id1',
+        employee: 'Giovanni',
+      },
+    },
+    {
+      id: 'aPf4UL223BKdhuYkrxXd',
+      data: {
+        category: 'Panini dolci',
+        description: 'EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEh',
+        price: 10,
+        title: 'panino al sambuco',
+        employee: 'Giovanni',
+      },
+    },
+    {
+      id: 'cgkMKOKLFuATjtiVpboo',
+      data: {
+        review: '',
+        description: 'pollo con patate',
+        title: 'pollo con patate',
+        employee: 'Aldo',
+        price: '15',
+        category: 'secondo',
+      },
+    },
+    {
+      id: 'osKO5guWuoABgKjIWK3M',
+      data: {
+        title: 'torta alla vaniglia',
+        employee: 'Salgemma Lorenza',
+        price: 240,
+        category: 'torte',
+        description: 'Torta di buona fattura',
+      },
+    },
   ];
-  public polarAreaChartData: SingleDataSet = [300, 500, 100, 40, 120];
-  public polarAreaLegend = true;
+  public isGridLayout: boolean;
+  public polarAreaChartLabels: Label[] = [];
+  public polarAreaChartData: SingleDataSet = [];
 
+  public polarAreaLegend: boolean = true;
   public polarAreaChartType = 'polarArea';
   public chartOptions = {
     responsive: true,
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     scales: {
       y: {
         beginAtZero: true,
       },
     },
   };
-  constructor(private http: HttpClient, private storeService: StoreService) {}
+  public polarAreaColors = [];
+  constructor(private storeService: StoreService) {}
 
   ngOnInit() {
-    this.test();
-    this.test2();
+    this.loader = true;
+    this.getProducts();
+    this.getStats();
   }
-  test() {
+
+  getProducts() {
     this.storeService.getStoreProducts().subscribe(
-      (data: any) => {
-        this.products = data;
+      (response: Product[]) => {
+        this.products = response;
       },
       (err) => {
         console.log(err);
+      },
+      () => {
+        this.loader = false;
       }
     );
-    /*this.http
-        .get(this.base + 'stores/' + this.idStores + '/products')
-        .subscribe((data: any) => {
-          console.log(data);
-          this.products = data;
-        });*/
   }
 
-  test2() {
+  getStats() {
     this.storeService
       .getCategoriesStats()
-      .subscribe((data: CategoryStats[]) => {
-        let arr = [];
-        let arr2 = [];
-        data.forEach((e) => {
-          arr.push(e.category);
-          arr2.push(e.numberOfProducts);
+      .subscribe(async (response: CategoryStats[]) => {
+        let labels = [];
+        let data = [];
+        let color = [];
+        await response.forEach((e) => {
+          labels.push(e.category);
+          data.push(e.numberOfProducts);
+          color.push(this.randomRGB());
         });
-        this.polarAreaChartLabels = arr;
-        this.polarAreaChartData = arr2;
+        this.polarAreaChartLabels = labels;
+        this.polarAreaChartData = data;
+        this.polarAreaColors = color;
       });
   }
 
   changeLayout() {
-    this.className = !this.className;
+    this.isGridLayout = !this.isGridLayout;
   }
 
   deleteProduct(id: string) {
     this.storeService.deleteProduct(id).subscribe(() => {
-      this.test();
+      this.getProducts();
     });
+  }
+
+  randomRGB() {
+    const r = Math.random() * 255;
+    const g = Math.random() * 255;
+    const b = Math.random() * 255;
+    return `rgba(${r},${g},${b},0.28)`;
   }
 }
