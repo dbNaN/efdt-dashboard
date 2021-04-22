@@ -1,0 +1,66 @@
+/* You can add global styles to this file, and also import other style files */
+@import url("https://css.gg/menu-grid-o.css");
+@import url("https://css.gg/trash.css");
+@import url("https://css.gg/zoom-in.css");
+@import url("https://css.gg/profile.css");
+
+html {
+  box-sizing: border-box;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 15px 15px;
+  grid-template-areas:
+    ". . ."
+    ". . .";
+}
+.grid-container > *:first-child {
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+}
+.product-list {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  overflow: auto;
+
+  .panel-layout {
+    margin-bottom: 15px;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+body {
+  background-color: #f4f3ef;
+}
+.card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 10px -4px rgba(0, 0, 0, 0.15);
+
+  .card-header {
+    padding: 15px 15px 0;
+  }
+  .card-body {
+    padding: 15px 15px 15px;
+  }
+}
+div.container {
+  margin: 0;
+  max-width: 100%;
+}
