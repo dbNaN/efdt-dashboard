@@ -1,4 +1,4 @@
-.navbar {
+.efdt-navbar {
   background-color: transparent !important;
   box-shadow: none;
   border-bottom: 1px solid #ddd;
@@ -10,10 +10,10 @@
   align-items: center;
   justify-content: space-between;
 
-  .navbar-left {
+  .efdt-navbar-left {
     margin-left: 2rem;
   }
-  .navbar-right {
+  .efdt-navbar-right {
     margin-right: 2rem;
     display: flex;
     align-items: center;
@@ -21,8 +21,8 @@
   .profile-icon {
     padding-left: 0.6rem;
   }
-  .navbar-left p,
-  .navbar-right p {
+  .efdt-navbar-left p,
+  .efdt-navbar-right p {
     margin: 0;
     padding: 0;
     text-transform: capitalize;
@@ -31,7 +31,19 @@
     padding-bottom: 0.5rem;
     line-height: 1.625rem;
   }
-  .navbar-left p {
+  .efdt-navbar-left p {
     text-transform: uppercase;
+  }
+}
+.efdt-temp {
+  opacity: 0;
+  animation: opacityOnAndOff 1s infinite;
+}
+@keyframes opacityOnAndOff {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
