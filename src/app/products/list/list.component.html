@@ -177,18 +177,21 @@
       </div>
       <div class="panel-footer">
         <div class="price">
-          Price:
+          <span class="underline">Price </span>
           <p>{{ pProduct.data.price }}</p>
         </div>
         <div class="employee">
-          Employee:
+          <span class="underline">Employee </span>
           <p>{{ pProduct.data.employee }}</p>
         </div>
         <div class="review">
-          Review:
+          <span class="underline">Review </span>
           <p>{{ pProduct.data.review }}</p>
         </div>
       </div>
     </div>
   </div>
 </ng-template>
+<ngx-spinner size="medium" [fullScreen]="true"
+  ><p style="color: white">Loading...</p></ngx-spinner
+>

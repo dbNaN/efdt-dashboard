@@ -112,3 +112,9 @@
     />
   </div>
 </ng-template>
+<ngx-spinner size="medium" [fullScreen]="true"
+  ><p style="color: white">
+    <span *ngIf="isAddMode">Saving...</span>
+    <span *ngIf="!isAddMode">Loading...</span>
+  </p></ngx-spinner
+>

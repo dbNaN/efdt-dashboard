@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Label, SingleDataSet } from 'ng2-charts';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { CategoryStats } from 'src/app/core/models/category-stats.model';
 import { Product } from 'src/app/core/models/product.model';
 import { PaginationService } from 'src/app/core/services/pagination.service';
@@ -13,7 +14,6 @@ import { StoreService } from 'src/app/core/services/store.service';
 })
 export class ListComponent implements OnInit {
   public pagedItems: any[];
-  public loader: boolean = false;
   public setPage: boolean = false;
   public products: any[] = [
     {
@@ -108,28 +108,30 @@ export class ListComponent implements OnInit {
   public polarAreaColors = [];
   constructor(
     private storeService: StoreService,
-    private paginationService: PaginationService
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit() {
-    this.setPage = true;
-    //this.setPage(1);
-    //this.getProducts();
-    //this.getStats();
+    this.getProducts();
+    this.getStats();
   }
 
   getProducts() {
+    this.setPage = false;
+    this.spinner.show();
     this.storeService.getStoreProducts().subscribe(
       (response: Product[]) => {
         console.log(response);
         this.products = response;
-        //this.setPage(1);
+        this.setPage = true;
+        this.spinner.hide();
       },
       (err) => {
         console.log(err);
+        this.spinner.hide();
       },
       () => {
-        this.loader = false;
+        this.spinner.hide();
       }
     );
   }

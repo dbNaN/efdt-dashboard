@@ -9,6 +9,7 @@ import { ProductsModule } from './products/products.module';
 import { LayoutComponent } from './layout/layout.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [AppComponent, LayoutComponent],
   imports: [
@@ -19,6 +20,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     ProductsModule,
     BrowserAnimationsModule,
     MatGridListModule,
+    NgxSpinnerModule,
   ],
   exports: [MatGridListModule],
   providers: [],

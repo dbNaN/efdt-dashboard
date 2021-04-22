@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { PaginationComponent } from './pagination/pagination.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   imports: [
     CommonModule,
@@ -13,6 +14,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     HttpClientModule,
     RouterModule,
     MatGridListModule,
+    NgxSpinnerModule,
   ],
   declarations: [PaginationComponent],
   exports: [PaginationComponent, MatGridListModule],

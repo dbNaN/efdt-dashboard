@@ -64,5 +64,16 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: #606c76 !important;
+  font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
+}
+.underline {
+  text-decoration: underline;
+}
+h3,
+.mat-typography h3 {
+  margin: 0 !important;
+  font-family: "Roboto", "Helvetica Neue", "Helvetica", "Arial", sans-serif !important;
+  font-size: 2.8rem;
+  line-height: 1.3;
 }

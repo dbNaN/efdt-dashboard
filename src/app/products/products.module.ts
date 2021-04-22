@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     ChartsModule,
     NgxPaginationModule,
     MatGridListModule,
+    NgxSpinnerModule,
   ],
   exports: [MatGridListModule],
   declarations: [ProductsComponent, AddComponent, ListComponent],

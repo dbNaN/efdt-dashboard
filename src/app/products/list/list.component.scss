@@ -8,10 +8,12 @@
   position: relative;
 }
 
-.panel-layout:hover,
-.grid-layou:hover {
+.panel-layout:hover {
   box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
     rgba(155, 77, 202, 0.8) 0px 0px 0px 1px;
+}
+.grid-layout:hover {
+  border: 1px solid #9b4dca;
 }
 p {
   margin: 0;
@@ -175,7 +177,7 @@ p {
     font-weight: bold;
     margin-bottom: 3rem;
     max-width: 80%;
-    margin: 0 auto 3rem auto;
+    margin: 0.2rem auto 3rem auto;
     p {
       white-space: nowrap;
       overflow: hidden;
@@ -219,11 +221,15 @@ p {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 14px;
 
     p {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+    }
+    .review {
+      margin-bottom: 1.5rem;
     }
   }
 }
@@ -239,4 +245,7 @@ p {
     padding: 0;
     margin: 0;
   }
+}
+.title > p:first-child {
+  font-size: 16px;
 }
