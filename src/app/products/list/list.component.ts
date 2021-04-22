@@ -117,8 +117,8 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.products);
-    this.setPage(1);
-    //this.getProducts();
+    //this.setPage(1);
+    this.getProducts();
     //this.getStats();
   }
 

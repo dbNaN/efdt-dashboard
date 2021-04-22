@@ -1,8 +1,8 @@
 <div class="container">
   <div class="row">
     <div class="column column-60">
-      <div class="card">
-        <div class="card-header">
+      <div class="efdt-card">
+        <div class="efdt-card-header">
           <button class="button button-default" (click)="changeLayout()">
             Change layout
           </button>
@@ -10,7 +10,7 @@
             Add new Product
           </button>
         </div>
-        <div class="card-body">
+        <div class="efdt-card-body">
           <div
             class="parent"
             [ngClass]="{
@@ -26,7 +26,7 @@
             </ng-container>
           </div>
         </div>
-        <div class="card-footer paginator">
+        <div class="efdt-card-footer paginator">
           <div class="hq">
             <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
               <li [ngClass]="{ disabled: pager.currentPage === 1 }">
@@ -61,11 +61,11 @@
       </div>
     </div>
     <div class="column">
-      <div class="card">
-        <div class="card-header">
+      <div class="efdt-card">
+        <div class="efdt-card-header">
           <h3>Products per category ratio</h3>
         </div>
-        <div class="card-body">
+        <div class="efdt-card-body">
           <div style="display: block">
             <canvas
               baseChart

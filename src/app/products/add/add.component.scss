@@ -1,3 +1,20 @@
 :host .button-primary {
   margin-right: 5px;
 }
+.efdt-card form {
+  margin-bottom: 0;
+
+  fieldset {
+    margin-bottom: 0;
+  }
+  input {
+    margin-bottom: 0.5rem;
+  }
+}
+.input-error {
+  color: red;
+}
+.submit-button,
+.back-button {
+  margin-top: 1rem;
+}

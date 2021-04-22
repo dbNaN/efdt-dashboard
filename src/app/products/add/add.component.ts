@@ -9,9 +9,9 @@ import { StoreService } from 'src/app/core/services/store.service';
   styleUrls: ['./add.component.scss'],
 })
 export class AddComponent implements OnInit {
-  id!: string;
-  isAddMode: boolean = true;
-  loading = false;
+  public id: string;
+  public isAddMode: boolean = true;
+  public loading = false;
   public form = this.formBuilder.group({
     title: ['', Validators.required],
     price: [0, Validators.required],
@@ -26,15 +26,16 @@ export class AddComponent implements OnInit {
     employee: this.form.get('employee'),
     description: this.form.get('description'),
   };
+
   constructor(
     private formBuilder: FormBuilder,
     private storeService: StoreService,
     private router: Router,
     private route: ActivatedRoute
   ) {}
+
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-    console.log(this.route.snapshot);
     if (this.id) {
       this.isAddMode = false;
       this.form.disable();
@@ -43,6 +44,7 @@ export class AddComponent implements OnInit {
       });
     }
   }
+
   onSubmit() {
     if (this.form.invalid) {
       return;
@@ -51,9 +53,15 @@ export class AddComponent implements OnInit {
   }
 
   private createProduct() {
-    this.storeService.createProduct(this.form.value).subscribe(() => {
-      this.router.navigate['products'];
-    });
+    this.storeService.createProduct(this.form.value).subscribe(
+      () => {
+        this.router.navigate['products'];
+      },
+      (err) => {
+        console.log(err);
+        this.router.navigate['products'];
+      }
+    );
   }
 
   back() {
