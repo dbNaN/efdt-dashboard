@@ -1,15 +1,19 @@
-<div class="sidebar">
-  <div class="sidebar-wrapper">
-    <div class="logo">
+<div class="efdt-sidebar">
+  <div class="efdt-sidebar-wrapper">
+    <div class="efdt-sidebar-logo">
       <p>dashboard</p>
     </div>
-    <ul class="nav" *ngFor="let path of routes">
+    <ul class="efdt-sidebar-nav" *ngFor="let path of routes">
       <li>
         <a
-          [routerLink]="[path]"
+          [routerLink]="['/' + path]"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
-          >{{ path }}</a
+        >
+          <span class="shopping-cart-icon" (click)="deleteProduct(gProduct.id)">
+            <i class="gg-shopping-cart"></i
+          ></span>
+          <p>{{ path }}</p></a
         >
       </li>
     </ul>
