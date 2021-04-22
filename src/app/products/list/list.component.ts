@@ -12,13 +12,9 @@ import { StoreService } from 'src/app/core/services/store.service';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  // pager object
-  pager: any = {};
-
-  // paged items
-  pagedItems: any[];
-
+  public pagedItems: any[];
   public loader: boolean = false;
+  public setPage: boolean = false;
   public products: any[] = [
     {
       id: '3dkjcHtVCku9xML1gS6G',
@@ -46,8 +42,8 @@ export class ListComponent implements OnInit {
         category: 'Pasticceria',
         title: 'Torta sake',
         description: 'Torta al sake caldo',
-        employee: 'Giovanni',
-        price: 10,
+        employee: 'Giovanni Sempronio Agamennone',
+        price: 100000000000000000,
       },
     },
     {
@@ -116,9 +112,9 @@ export class ListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    console.log(this.products);
+    this.setPage = true;
     //this.setPage(1);
-    this.getProducts();
+    //this.getProducts();
     //this.getStats();
   }
 
@@ -127,7 +123,7 @@ export class ListComponent implements OnInit {
       (response: Product[]) => {
         console.log(response);
         this.products = response;
-        this.setPage(1);
+        //this.setPage(1);
       },
       (err) => {
         console.log(err);
@@ -172,21 +168,8 @@ export class ListComponent implements OnInit {
     const b = Math.random() * 255;
     return `rgba(${r},${g},${b},0.28)`;
   }
-  setPage(page: number) {
-    if (page < 1 || page > this.pager.totalPages) {
-      return;
-    }
 
-    // get pager object from service
-    this.pager = this.paginationService.getPagination(
-      this.products.length,
-      page
-    );
-
-    // get current page of items
-    this.pagedItems = this.products.slice(
-      this.pager.startIndex,
-      this.pager.endIndex + 1
-    );
+  getItems(event) {
+    this.pagedItems = event;
   }
 }

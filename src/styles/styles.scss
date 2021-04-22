@@ -4,7 +4,7 @@
 @import url("https://css.gg/zoom-in.css");
 @import url("https://css.gg/profile.css");
 @import url("https://css.gg/shopping-cart.css");
-
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 html {
   box-sizing: border-box;
 }
@@ -12,20 +12,6 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
-}
-
-.grid-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 15px 15px;
-  grid-template-areas:
-    ". . ."
-    ". . .";
-}
-.grid-container > *:first-child {
-  grid-row: 1 / 1;
-  grid-column: 1 / 1;
 }
 .product-list {
   display: flex;
@@ -64,4 +50,19 @@ body {
 div.container {
   margin: 0;
   max-width: 100%;
+}
+.button-small {
+  font-size: 0.8rem;
+  height: 2.8rem;
+  line-height: 2.8rem;
+  padding: 0 1.5rem;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

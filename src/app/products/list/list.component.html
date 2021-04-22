@@ -18,45 +18,35 @@
               'product-list': !isGridLayout
             }"
           >
-            <ng-container *ngFor="let product of pagedItems">
-              <ng-container
-                [ngTemplateOutlet]="isGridLayout ? gridLayout : panelLayout"
-                [ngTemplateOutletContext]="{ product: product }"
-              ></ng-container>
+            <ng-container *ngIf="!isGridLayout">
+              <ng-container *ngFor="let product of pagedItems">
+                <ng-container
+                  [ngTemplateOutlet]="panelLayout"
+                  [ngTemplateOutletContext]="{ product: product }"
+                ></ng-container>
+              </ng-container>
             </ng-container>
+            <mat-grid-list
+              cols="3"
+              [rowHeight]="'250px'"
+              [gutterSize]="'10px'"
+              *ngIf="isGridLayout"
+            >
+              <mat-grid-tile *ngFor="let product of pagedItems">
+                <ng-container
+                  [ngTemplateOutlet]="gridLayout"
+                  [ngTemplateOutletContext]="{ product: product }"
+                ></ng-container>
+              </mat-grid-tile>
+            </mat-grid-list>
           </div>
         </div>
         <div class="efdt-card-footer paginator">
-          <div class="hq">
-            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-              <li [ngClass]="{ disabled: pager.currentPage === 1 }">
-                <a (click)="setPage(1)">First</a>
-              </li>
-              <li [ngClass]="{ disabled: pager.currentPage === 1 }">
-                <a (click)="setPage(pager.currentPage - 1)">Previous</a>
-              </li>
-              <li
-                *ngFor="let page of pager.pages"
-                [ngClass]="{ active: pager.currentPage === page }"
-              >
-                <a (click)="setPage(page)">{{ page }}</a>
-              </li>
-              <li
-                [ngClass]="{
-                  disabled: pager.currentPage === pager.totalPages
-                }"
-              >
-                <a (click)="setPage(pager.currentPage + 1)">Next</a>
-              </li>
-              <li
-                [ngClass]="{
-                  disabled: pager.currentPage === pager.totalPages
-                }"
-              >
-                <a (click)="setPage(pager.totalPages)">Last</a>
-              </li>
-            </ul>
-          </div>
+          <app-pagination
+            [isSetPage]="setPage"
+            [data]="products"
+            (items)="getItems($event)"
+          ></app-pagination>
         </div>
       </div>
     </div>
@@ -85,6 +75,46 @@
 </div>
 <ng-template #gridLayout let-gProduct="product">
   <div class="grid-layout">
+    <div class="grid-header">
+      <div class="title">
+        <p>{{ gProduct.data.title }}</p>
+      </div>
+      <div class="category">
+        <p>{{ gProduct.data.category }}</p>
+      </div>
+      <div class="description">
+        <p>{{ gProduct.data.description }}</p>
+      </div>
+    </div>
+    <div class="grid-footer">
+      <div class="price">
+        <p>Price: {{ gProduct.data.price }}</p>
+      </div>
+      <div class="employee">
+        <p>Employee: {{ gProduct.data.employee }}</p>
+      </div>
+      <div class="review">
+        <p>Review: {{ gProduct.data.review }}</p>
+      </div>
+    </div>
+    <div class="actionButtons">
+      <button
+        class="button-small button-default"
+        [routerLink]="[gProduct.id, 'view']"
+      >
+        View
+      </button>
+      <button
+        class="button-small button-outline"
+        (click)="deleteProduct(gProduct.id)"
+      >
+        Remove
+      </button>
+    </div>
+  </div>
+</ng-template>
+<!--<ng-template #gridLayout let-gProduct="product">
+  <div class="grid-layout">
     <div class="grid-wrapper">
       <div class="grid-header">
         <div class="title">
@@ -92,12 +122,6 @@
           <span class="category">
             <p>{{ gProduct.data.category }}</p>
           </span>
-          <!--<span class="trash-icon" (click)="deleteProduct(gProduct.id)">
-            <i class="gg-trash"></i
-          ></span>
-          <span class="zoom-in-icon" [routerLink]="[gProduct.id, 'view']"
-            ><i class="gg-zoom-in"></i
-          ></span>-->
         </div>
         <div class="description">
           <p>{{ gProduct.data.description }}</p>
@@ -116,7 +140,7 @@
       </div>
     </div>
   </div>
-</ng-template>
+</ng-template>-->
 <ng-template #panelLayout let-pProduct="product">
   <div class="panel-layout">
     <div class="panel-wrapper">
@@ -126,12 +150,26 @@
           <span class="category">
             <p>{{ pProduct.data.category }}</p>
           </span>
-          <span class="trash-icon" (click)="deleteProduct(pProduct.id)">
+          <div class="actionButtons">
+            <button
+              class="button-small button-default"
+              [routerLink]="[pProduct.id, 'view']"
+            >
+              View
+            </button>
+            <button
+              class="button-small button-outline"
+              (click)="deleteProduct(pProduct.id)"
+            >
+              Remove
+            </button>
+          </div>
+          <!--<span class="trash-icon" (click)="deleteProduct(pProduct.id)">
             <i class="gg-trash"></i
           ></span>
           <span class="zoom-in-icon" [routerLink]="[pProduct.id, 'view']"
             ><i class="gg-zoom-in"></i
-          ></span>
+          ></span>-->
         </div>
         <div class="description">
           <p>{{ pProduct.data.description }}</p>
@@ -139,13 +177,16 @@
       </div>
       <div class="panel-footer">
         <div class="price">
-          <p>Price: {{ pProduct.data.price }}</p>
+          Price:
+          <p>{{ pProduct.data.price }}</p>
         </div>
         <div class="employee">
-          <p>Employee: {{ pProduct.data.employee }}</p>
+          Employee:
+          <p>{{ pProduct.data.employee }}</p>
         </div>
         <div class="review">
-          <p>Review: {{ pProduct.data.review }}</p>
+          Review:
+          <p>{{ pProduct.data.review }}</p>
         </div>
       </div>
     </div>
